@@ -1,0 +1,66 @@
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">DigiFus</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Principal <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/perfil/visualizar/{{Usuario}}">Mi perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/logout">Desconectarse</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+<div class="container">
+
+
+    <div class="card" style="margin-top: 20px;">
+        <div class="card-header">
+            Solicitudes del día
+        </div>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" ng-repeat="r in resultado">
+                <!--<span nf-if="r.estado_solicitud == 'NUEVA'" class="pedido-estado pedido-estado-nuevo pull-left"></span>
+                <span nf-if="r.estado_solicitud == 'ATENDIDA'" class="pedido-estado pedido-estado-finalizado pull-left"></span>-->
+                <b>Turno #: </b>{{r.consecutivo_solicitud}} - {{r.nom_usuario}}
+                <span ng-if="r.estado_solicitud == 'NUEVA'" class="badge badge-primary pull-right">{{r.estado_solicitud}}</span> 
+                <span ng-if="r.estado_solicitud == 'ATENDIDA'" class="badge badge-success pull-right">{{r.estado_solicitud}}</span>                
+            </li>
+
+        </ul>
+        <a class="btn btn-block btn-primary remove-border-radius" href="#/principal/registrar">Siguiente Turno</a>
+        <!--<ul class="table-view">
+
+            <li class="table-view-cell" ng-repeat="r in resultado">
+
+                    <a class="navigate-right" href="#/principal/visualizar/{{ r.COD_SOLICITUD }}">
+                    <span ng-if="r.ESTADO_SOLICITUD == 'NUEVA'" class="pedido-estado pedido-estado-nuevo pull-left"></span>
+                    <span ng-if="r.ESTADO_SOLICITUD == 'PENDIENTE'" class="pedido-estado pedido-estado-pendiente pull-left"></span>
+                    <span ng-if="r.ESTADO_SOLICITUD == 'RECHAZADA'" class="pedido-estado pedido-estado-anulado pull-left"></span>
+                        <span ng-if="r.ESTADO_SOLICITUD == 'AUTORIZADA'" class="pedido-estado pedido-estado-finalizado pull-left"></span>
+                        <b>Solicitud #{{r.COD_SOLICITUD}}</b>
+                        <span class="badge">{{r.ESTADO_SOLICITUD}}</span>
+                    </a>
+
+            </li>
+
+        </ul>-->
+    </div>
+
+</div>
+
+
+<!-- Logout -->
+
+
+<!--<div class="bar bar-standard bar-footer-secondary">
+  <a href="#/logout" class="btn btn-block btn-negative">Desconectarse</a>
+</div>-->

@@ -1,0 +1,101 @@
+<div class="card solicitud-visualizar">
+	<ul class="table-view">
+		<li class="table-view-divider text-center">
+		    <h1>Solicitud #{{numSolicitud}} </h1>            
+		</li>
+		<li class="solicitud-cabecera">
+		    <dl>
+		      <dt>Vuelo:</dt>
+
+		      <dd ng-if="rSolicitud.VUELO_SOLICITUD == 1">SI</dd>
+		      <dd ng-if="rSolicitud.VUELO_SOLICITUD == 0">NO</dd>
+
+		      <dt>IDA Y REGRESO</dt>
+		   
+		      <dd ng-if="rSolicitud.VIDAREGRESO_SOLICITUD == 1">SI</dd>
+		      <dd ng-if="rSolicitud.VIDAREGRESO_SOLICITUD == 0">NO</dd>
+		      
+		      <dt>Hotel</dt>
+ 
+		      <dd ng-if="rSolicitud.HOTEL_SOLICITUD == 1">SI</dd>
+		      <dd ng-if="rSolicitud.HOTEL_SOLICITUD == 0">NO</dd>
+
+		      <dt>Solicitud para un tercero</dt>
+		      <dd>NO</dd>
+		      <dt>Estado de la solicitud</dt>
+		      <dd><span class="badge badge-negative">{{rSolicitud.ESTADO_SOLICITUD}}</span></dd>
+		      <dt>Objetivo de la solicitud</dt>
+		      <dd>{{rSolicitud.OBJETIVO_SOLICITUD}}</dd>
+		    </dl>
+		</li>
+		
+		<li class="table-view-divider text-center">
+		    <h1>Detalle de la solicitud</h1>            
+		</li>
+		<li class="table-view-divider">Información del pasajero <i class="fas fa-male"></i></li>
+		<li class="table-view-cell" ng-if="rSolicitud.DOC_TERCERO != 1">
+		    <dl>
+		      <dt>Tipo de documento:</dt>
+				<dd>{{rSolicitud.TIPDOC_TERCERO}}</dd>
+		      <dt>Número de documento:</dt>
+				<dd> {{rSolicitud.DOC_TERCERO}} </dd>
+			  <dt>Nombre completo:</dt>
+				<dd> {{rSolicitud.NOM_TERCERO}} </dd>
+		      <dt>Número de telefono:</dt>
+				<dd> {{rSolicitud.TEL_TERCERO}} </dd>
+		      <dt>Fecha de nacimiento:</dt>
+				<dd> {{rSolicitud.FNACIMIENTO_TERCERO}} </dd>
+		    </dl>
+		</li>
+		<li class="table-view-cell" ng-if="rSolicitud.REQTERCERO_SOLICITUD == 0">
+		    <dl>
+			  <dt>Nombre completo:</dt>
+				<dd> {{rSolicitud.NOMBRE_EMPLEADO}} </dd>
+		      <dt>Número de telefono:</dt>
+				<dd> {{rSolicitud.TEL_EMPLEADO}} </dd>
+		      <dt>Fecha de nacimiento:</dt>
+				<dd> {{rSolicitud.FNACIMIENTO_EMPLEADO}} </dd>
+		    </dl>
+		</li>
+
+
+		<li class="table-view-divider">Informacion del vuelo <i class="fas fa-plane"></i></li>
+		<li class="table-view-cell" ng-repeat="rv in rSolicitud.Vuelos">
+			<div class="solicitud-detalle">
+				<strong>Origen: </strong>{{rv.CIUD_ORIGEN}} - <strong>Destino: </strong>{{rv.CIUD_DESTINO}}
+				<div class="descripcion">
+					<b>Fecha: </b>{{rv.FIDA_RESERVA}}
+				</div>
+			</div>
+		</li>
+		
+		<li class="table-view-divider">Informacion del Hotel <i class="fas fa-h-square"></i></li>
+		<li class="table-view-cell" ng-repeat="rh in rSolicitud.Hoteles">
+			<div class="solicitud-detalle">
+				<strong>Ciudad: </strong>{{rh.CIUD_HOTEL}}
+				<div class="descripcion">
+					<b>Fecha de ingreso: </b>{{rh.FINHOTEL_RESERVA}}
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+<nav class="bar bar-tab">
+	<a class="tab-item " href="#/principal">
+	  <span class="icon icon-home"></span>
+	  <span class="tab-label">Inicio</span>
+	</a>
+ 	<a class="tab-item" href="#/perfil/visualizar/{{usuario}}">
+		<span class="icon icon-person"></span>
+	    <span class="tab-label">Mi perfil</span>
+	</a>
+	<a class="tab-item" href="#/principal/registrar">
+		<span class="icon icon-compose"></span>
+		<span class="tab-label">Nueva solicitud</span>
+	</a>
+	<a class="tab-item" href="#/logout">
+	    <span class="icon icon-close"></span>
+	    <span class="tab-label">Desconectarse</span>
+	</a>
+
+</nav>

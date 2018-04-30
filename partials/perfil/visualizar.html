@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">DigiFus</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item ">
+        <a class="nav-link" href="#">Principal</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#/perfil/visualizar/{{Usuario}}">Mi perfil<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/logout">Desconectarse</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">	
+	<div class="card">
+		<div class="card-header">
+			<h1>Actualiza la informacion de tu usuario</h1>
+		</div>
+		<ul class="list-group list-group-flush">
+
+			<li class="list-group-item">
+					<div class="row">
+					    <label>Usuario</label>
+					    <input type="text" class="form-control" disabled ng-model="txt_email">
+					</div>
+					<div class="row">
+					    <label>Nombre completo</label>
+					    <input type="text" class="form-control" ng-model="txt_nombre">
+					</div>
+					<div class="row">
+					    <label>Perfil de usuario</label>
+					    <input type="text" class="form-control" ng-model="txt_perusuario" disabled>
+					</div>				
+			</li>
+			<div class="card-header">
+				<h4>Actualizar contraseña <i class="fas fa-key"></i></h4>
+				<h5 	style="color:red;">{{errorPass}}</h5>
+			</div>
+			<li class="list-group-item">
+				
+					<div class="row">
+					    <label>Nueva contraseña</label>
+					    <input type="password" class="form-control"  placeholder="*******" ng-model="txt_pass">
+					</div>
+					<div class="row">
+					    <label>Confirmar contraseña</label>
+					    <input type="password"  class="form-control" placeholder="*******" ng-model="txt_confipass">
+					</div>
+				
+			</li>
+			<li class="list-group-item">
+				<div class="content-padded">
+				    
+				</div>
+			</li>
+		</ul>
+		<button class="btn btn-block btn-primary" type="button" ng-click="actualizaPerfil()">Actualizar</button>
+	</div>
+</div>

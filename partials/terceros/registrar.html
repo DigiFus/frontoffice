@@ -1,0 +1,59 @@
+<div class="card perfil-visualizar">
+	<ul class="table-view">
+		<li class="table-view-divider text-center">
+			<h1>Registrar un nuevo tercero</h1>
+		</li>
+		<div class="input-group ">
+			<label class="content-padded">Tipo de documento <strong style="color: red;">*</strong></label>
+			<select class="pad-content" ng-model="DocTercero" >
+				<option value="0" selected="" disabled="">Seleccione un tipo de documento</option>    	
+				<option value="CC">Cédula de ciudadania</option>
+				<option value="CE">Cédula de extrangeria</option>
+				<option value="PAS">Pasaporte</option>
+			</select>
+		    <div class="input-row">
+		        <label>Numero de documento <strong style="color: red;">*</strong></label>
+		        <input type="text" placeholder="12456..." ng-model="txt_NumDoc" >
+		    </div>
+		    <div class="input-row">
+		        <label>Nombre Completo <strong style="color: red;">*</strong></label>
+		        <input type="text" ng_model="txt_ntercero" placeholder="El nombre del tercero ...">
+		    </div>
+		    <div class="input-row">
+		        <label>Teléfono</label>
+		        <input type="text" ng-model="txt_TelTercero" placeholder="Teléfono del tercero..">
+		    </div>
+		    <div class="input-row">
+		        <label>Fecha Nacimiento</label>
+		        <input type="date" ng-model="txt_FnacimientoTercero" >
+		    </div>
+		</div>
+
+		<li class="table-cell">
+			<div class="content-padded">
+			    <button class="btn btn-block btn-primary" type="button" ng-click="registrarTercero()">Registrar</button>
+			</div>
+		</li>
+	</ul>
+	<div class="card" ng-if="validation">
+	  <h5>No se guardo el registro, verifique los siguientes errores y luego intente nuevamente.</h5>
+
+	  <ul class="table-view" >
+	  	
+	  	<label for="" ng-if="validation.TIPDOC"><b>Tipo de Documento</b></label>
+	    <li class="table-view-cell alert-warning" ng-repeat="vtdoc in validation.TIPDOC">{{vtdoc}}</li>
+		
+		<label for="" ng-if="validation.DOC"><b>Numero de documento</b></label> 
+		<li class="table-view-cell alert-warning" ng-repeat="vdoc in validation.DOC">{{vdoc}}</li>
+
+		<label for=""><b>Nombre del tercero</b></label>
+		<li class="table-view-cell alert-warning" ng-repeat="vnom in validation.NOM">{{vnom}}</li>
+
+
+	  </ul>
+	</div>
+</div>
+
+<div class="bar bar-standard bar-footer">
+  <a class="icon icon-compose icon-left" href="#/principal/registrar"></a>
+</div>	

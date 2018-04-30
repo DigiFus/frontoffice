@@ -1,0 +1,217 @@
+<div class="content-padded">
+	<!-- MENU DATA VUELO CONTENT --> 
+
+	<ul class="table-view">
+	  <li class="table-view-cell"  >
+		    <i class="fas fa-plane"></i>
+		    VUELO
+		    <div id="vuelo" class="toggle "  ng-click="activeV = !activeV" ng-class="{'active':activeV}" ng-model="TVuelo[$index]">
+		      <div class="toggle-handle" ></div>
+		      
+		    </div>
+
+
+	  </li>
+
+	
+	    <li class="table-view-cell" ng-show="activeV" ng-model="TIdaRegreso">
+	  	    <i class="fas fa-plane"></i>
+	  	    IDA Y REGRESO
+	  	    <div class="toggle " ng-click="activeID = !activeID" ng-class="{'active':activeID}">
+	  	      <div class="toggle-handle"></div>
+	  	    </div>
+	    </li>
+	  <li class="table-view-cell" ng-model="THotel">
+		    <i class="fas fa-h-square"></i>
+		    HOTEL
+		    <div class="toggle" ng-click="activeH = !activeH" ng-class="{'active':activeH}">
+		      <div class="toggle-handle"></div>
+		    </div>
+	  </li>
+	  <!--<li class="table-view-cell">
+		    <i class="fas fa-plane"></i> + <i class="fas fa-h-square"></i>
+		    VUELO + HOTEL
+		    <div class="toggle" ng-click="activeHV = !activeHV" ng-class="{'active':activeHV}">
+		      <div class="toggle-handle"></div>
+		    </div>
+	  </li>-->
+	  <li class="table-view-cell" ng-model="TTercero">
+		    <i class="fas fa-male"></i>
+		    INCLUIR UN TERCERO
+		    <div class="toggle" ng-click="activeT = !activeT" ng-class="{'active':activeT}">
+		      <div class="toggle-handle"></div>
+		    </div>
+	  </li>
+	  <div class="input-group">
+	  	<div class="input-row">
+	  	    <label> <i class="fas fa-bullseye"></i> OBJETIVO DE LA SOLICITUD <strong style="color: red;">*</strong></label>
+	  	    <input type="text" ng-model="txt_objetivo" placeholder="Escriba que objetivo tiene esta solicitud" maxlength="100">
+	  	</div>
+	  </div>
+
+
+	</ul>
+
+
+	<!-- END MENU DATA VUELO CONTENT --> 
+
+	<!-- INFORMATION OF FLYING -->
+	<div class="card content-padded" ng-show="activeV">
+		<h2 class="content-padded"><i class="fas fa-plane"></i> Informacion del vuelo</h2>
+		<div class="input-group content-padded">
+		        <label>Ciudad de origen</label>
+		        <select class="pad-content" ng-model="CiuOrigen" >
+		        	<option value="{{c.ID_CIUDAD}}" ng-repeat="c in Ciudades"> {{c.NOMBRE_CIUDAD}}</option>
+		        </select>
+		        <label>Ciudad de destino</label>
+		        <select class="pad-content" ng-model="CiuDestino" >
+		        	<option value="{{c.ID_CIUDAD}}" ng-repeat="c in Ciudades"> {{c.NOMBRE_CIUDAD}}</option>
+		        </select>
+		    <div class="input-row">
+		        <label>Fecha de salida</label>
+		        <input type="date" ng-model="FSalida">
+		    </div>
+		    <div class="input-row" ng-show="activeID">
+		        <label>Fecha de regreso</label>
+		        <input type="date" ng-model="Fregreso">
+		    </div>
+
+		</div>
+		<button class="btn btn-positive btn-outlined btn-block" type="button" ng-click="agregaVuelo()">
+		    Agregar <span class="icon icon-plus"></span>
+		</button>
+	</div>
+
+	<div class="card">
+	    <ul class="table-view">
+	        <li class="table-view-cell" ng-repeat="v in Solicitud.Reservas" ng-model="RVuelo[$index]">
+	            <div class="pedido-detalle">
+	                <i class="fas fa-plane"></i>
+	                <strong class="producto">{{ v.CIUDAD_ORIGEN }}</strong> -
+	                <strong class="producto">{{ v.CIUDAD_DESTINO}}</strong>
+	                <div class="descripcion">
+	                	<b>Fecha de Salida: </b>{{v.FECHA_SALIDA}} | <b>Fecha de regreso: </b>{{v.FECHA_REGRESO}}
+	                </div>
+	            </div>
+	            <button class="btn btn-negative">
+	                <span class="icon icon-trash" ng-click="retirarVuelo($index)"></span>
+	            </button>
+	        </li>
+
+	    </ul>
+	</div>
+	<!-- END INFORMATION OF FLYING -->
+
+	<!-- INFORMATION OF HOTEL -->
+	<div class="card content-padded" ng-show="activeH">
+		<h2 class="content-padded"><i class="fas fa-h-square"></i> Informacion del Hotel</h2>
+		<div class="input-group content-padded">
+		        <label class="pad-content">Ciudad donde se va a hospedar</label>
+		        <select class="pad-content" ng-model="CiuHospedaje" >
+		        	<option value="{{c.ID_CIUDAD}}" ng-repeat="c in Ciudades"> {{c.NOMBRE_CIUDAD}}</option>
+		        </select>
+
+		    <div class="input-row">
+		        <label>Fecha ingreso</label>
+		        <input type="date" ng-model="FingresoHotel">
+		    </div>
+		    <div class="input-row">
+		        <label>Fecha de salida</label>
+		        <input type="date" ng-model="FSalidaHotel">
+		    </div>
+		</div>
+		<button class="btn btn-positive  btn-block" type="button" ng-click="agregarHotel()">
+		    Agregar <span class="icon icon-plus"></span>
+		</button>
+	</div>
+
+	<div class="card">
+	    <ul class="table-view">
+	        <li class="table-view-cell" ng-repeat="h in Solicitud.Hoteles" ng-model="RHotel[$index]">
+	            <div class="pedido-detalle">
+	                <i class="fas fa-h-square"></i>
+	                <strong class="producto">{{ h.NOMBRE_CIUDADH }}</strong> 
+	                <div class="descripcion">
+	                	<b>Fecha de ingreso: </b>{{h.FINGRESO_HOTEL}} | <b>Fecha de salida: </b>{{h.FSAL_HOTEL}}
+	                </div>
+	            </div>
+	            <button class="btn btn-negative">
+	                <span class="icon icon-trash" ng-click="retirarHotel($index)"></span>
+	            </button>
+	        </li>
+
+	    </ul>
+	</div>
+	<!-- END INFORMATION OF HOTEL -->
+	
+
+	<!-- INFORMATION ANOTHER PASSEGER --> 
+	<div class="card content-padded" ng-show="activeT">
+		<h2 class="content-padded"><i class="fas fa-male"></i> Informacion del tercero</h2>
+		<a href="#/tercero/registrar" class="content-padded">
+			<span class="icon icon-compose" title="Agrear un nuevo tercero"></span>
+			<span class="">Registra un tercero</span>
+		</a> 
+
+		<div class="input-group ">
+			
+		    <div class="input-row">
+		        <label>Numero de documento</label>
+		        <input type="text" placeholder="Ingrese el numero de documento para buscar" ng-model="txt_NumDoc" ng-keyup="searchPassager()" >
+		    </div>
+		    <div class="input-row">
+		    	<label >Tipo de documento</label>
+		    	<input type="text" ng-model="TipoDoc" disabled >
+		    </div>
+		    <div class="input-row">
+		        <label>Nombre Completo</label>
+		        <input type="text" ng_model="txt_ntercero"  disabled >
+		    </div>
+		    <div class="input-row">
+		        <label>Teléfono</label>
+		        <input type="text" ng-model="txt_TelTercero" disabled>
+		    </div>
+		    <div class="input-row">
+		        <label>Fecha Nacimiento</label>
+		        <input type="text" ng-model="txt_FnacimientoTercero" disabled>
+		    </div>
+		</div>
+	</div>
+	
+	<!-- END INFORMATION ANOTHER PASSEGER -->
+
+	<div class="card " ng-if="error_message" >
+	  <ul class="table-view ">
+	    <li class="table-view-cell alert-warning" >{{error_message}}</li>
+	  </ul>
+	</div> 
+		<!-- MENU ACTION --> 
+	<div class="content-padded">
+	    <button class="btn btn-block btn-primary" type="button" ng-click="registrarSolicitud()">Registrar</button>
+	    
+	</div>
+	<!-- END MENU ACTION -->
+</div>   
+
+
+<!-- FOOTER MENU -->
+<nav class="bar bar-tab">
+	<a class="tab-item " href="#/principal">
+	  <span class="icon icon-home"></span>
+	  <span class="tab-label">Inicio</span>
+	</a>
+ 	<a class="tab-item" href="#/perfil/visualizar/{{usuario}}">
+		<span class="icon icon-person"></span>
+	    <span class="tab-label">Mi perfil</span>
+	</a>
+	<a class="tab-item active" href="#/principal/registrar">
+		<span class="icon icon-compose"></span>
+		<span class="tab-label">Nueva solicitud</span>
+	</a>
+	<a class="tab-item" href="#/logout">
+	    <span class="icon icon-close"></span>
+	    <span class="tab-label">Desconectarse</span>
+	</a>
+
+</nav>
+<!-- END FOOTER MENU -->
