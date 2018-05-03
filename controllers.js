@@ -8,12 +8,15 @@ var authControllers   = angular.module('authControllers', [])
 authControllers.controller('AuthLoginCtrl', ['$scope', 'restApi', '$location', 'auth',
   function ($scope, restApi, $location, auth) {
       //loader.show(true);
+      var infoUsuario;
+      $scope.messageError = "";
 
       $scope.ingresar = function(){
 
        if (auth.getUserData()) {
 
-          $location.path('/principal');
+            $location.path('/principal');
+                   
        }
        else{
 
@@ -26,8 +29,28 @@ authControllers.controller('AuthLoginCtrl', ['$scope', 'restApi', '$location', '
             },
             response: function(r){
                 if (r.response) {
+
                   auth.setToken(r.result);
-                  $location.path('/principal');
+                  infoUsuario = auth.getUserData();
+                  console.log(infoUsuario);
+
+                    if (infoUsuario.EstadoUsuario === 'INACTIVO') {
+                      $scope.messageError = 'Lo sentimos, tu usuario ya no se encuentra activo en nuestro sistema, '
+                        +'si tienes dudas comunicate con el administrador.';
+
+                      auth.logout();
+                    }
+                    else if(infoUsuario.RolUsuario === 'USUARIO'){
+                      $scope.messageError = 'Lo sentimos, actualmente no puedes ingresar por este lugar.'
+                       +'Te invitamos a descargar la aplicación DigiFus para solicitar un turno de atención.';
+
+                      auth.logout();
+                    }
+                    else
+                    {
+                      $location.path('/principal');
+                    }
+
                 }else{
 
                   alert(r.message);
@@ -53,8 +76,8 @@ authControllers.controller('AuthLogoutCtrl', ['$scope', 'restApi', '$location', 
   }]);
 
 // Listar las solicitudes por usuario
-solicitudControllers.controller('solicitudListarCtrl', ['$scope', 'restApi', 'auth',
-  function ($scope, restApi, auth) {
+solicitudControllers.controller('solicitudListarCtrl', ['$scope', 'restApi', '$interval','auth',
+  function ($scope, restApi, $interval,auth) {
       auth.redirectIfNotExists();
 
       var user = auth.getUserData();
@@ -73,6 +96,18 @@ solicitudControllers.controller('solicitudListarCtrl', ['$scope', 'restApi', 'au
               break;
           
       }
+      //Con la variable promise almaceno la funcion interval que me permite refrescar la pagina cada determinado
+      //tiempo, para tener lo datos de las solicitudes en tiempo real.
+      var promise = $interval(function() 
+      { 
+       cargarSolicitudes()
+      }, 
+       5000);
+       
+       $scope.$on('$destroy', function () 
+       { 
+        $interval.cancel(promise); 
+       });
 
       cargarSolicitudes();
 
@@ -88,10 +123,11 @@ solicitudControllers.controller('solicitudListarCtrl', ['$scope', 'restApi', 'au
 
             },
             error: function(r){
+              console.log(r);
 
             },
             validationError: function(r){
-
+              console.log(r);
             }
         });
       }
@@ -636,6 +672,71 @@ perfilControllers.controller('PerfilVisualizarCtrl',['$scope', 'restApi', 'auth'
      function validaPass(pass, confipass){
         if (pass == confipass) {
           return true;
+        }
+        else
+        {
+          return false;
+        }
+     }
+
+}]);
+perfilControllers.controller('UsuarioRegistarCtrl',['$scope', 'restApi', 'auth', '$location','$routeParams',
+  function($scope,restApi,auth,$location,$routeParams){
+         
+      $scope.errorPass="";
+      $scope.errorRegistro="";
+      $scope.crearUsuario = function(){
+        
+        if (validaPass($scope.txt_pass,$scope.txt_confipass))
+        {
+          var data = {
+            nom_usuario:$scope.txt_nombre,
+            email_usuario:$scope.txt_correo,
+            pass_usuario:$scope.txt_pass,
+            rol_usuario:"USUARIO",
+            estado_usuario:"ACTIVO"
+          };
+          registrar(data);
+        }
+        else{
+
+          $scope.errorPass = "Las contraseñas no coinciden";
+        }
+      }
+
+      function registrar(datos){
+
+         restApi.call({
+            method: 'post',
+            url: 'usudisconnect/registrar',
+            data:datos,
+            response: function(r){
+              $location.path('/usuario/registroExitoso');
+            },
+            error: function(r){
+              console.log(r.pass_usuario);
+              $scope.errorRegistro = r.pass_usuario;
+            },
+            validationError: function(r){
+                console.log(r.pass_usuario);
+                if (r.pass_usuario) {
+                  $scope.errorRegistro = r.pass_usuario[0];
+                }
+                else if(r.email_usuario){
+                  $scope.errorRegistro = r.email_usuario[0];
+                }
+                
+            }
+        });
+      }
+
+
+      
+
+     function validaPass(pass, confipass){
+        if (pass == confipass) {
+            return true;
+          
         }
         else
         {

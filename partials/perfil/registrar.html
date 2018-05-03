@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+  <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>-->
+  <div class="" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#/"><i class="fas fa-angle-left"></i> Regresar <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3rem;">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<!-- MENSAJE DE ERROR EN EL REGISTRO -->
+			<div class="alert alert-warning alert-dismissible fade show" role="alert" ng-show="errorRegistro!=''">
+			  <strong>Registro de usuario: </strong> {{errorRegistro}}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<!-- FIN MENSAJE DE ERROR EN EL REGISTRO -->
+
+			<div class="card ">
+			  <div class="card-header bg-info text-light">
+			    Registro de usuario
+			  </div>
+			  <div class="card-body" style="margin: 5px">
+			    <div class="row">
+			    	<label for=""><b style="color: red;">* </b>Nombre completo:</label>
+			    	<input type="text" class="form-control" ng-model="txt_nombre" >			    	
+			    </div>
+			    <div class="row">
+			    	<label for=""><b style="color: red;">* </b>Correo:</label>
+			    	<input type="text" class="form-control" placeholder="alguien@micorreo.com" ng-model="txt_correo">			    	
+			    </div>
+			    <div class="row">
+			    	<label for=""><b style="color: red;">* </b>Contraseña:</label>
+			    	<input type="password" class="form-control" placeholder="*****" ng-model="txt_pass">			    	
+			    </div>
+			    <div class="row">
+			    	<label for=""><b style="color: red;">* </b>Confirme su contraseña:</label>
+			    	<input type="password" class="form-control" ng-model="txt_confipass">			    	
+			    </div>
+			    <div class="row">
+			    	<div class="col">
+			    		<div class="alert alert-warning alert-dismissible fade show" role="alert" ng-show="errorPass!=''">
+			    		  <strong>Validación de contraseña: </strong> {{errorPass}}
+			    		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    		    <span aria-hidden="true">&times;</span>
+			    		  </button>
+			    		</div>
+
+			    	</div>
+			    </div>
+			    <div class="row">
+			    	<button class="btn btn-success btn-block" ng-click="crearUsuario()">Crear mi usuario</button>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
