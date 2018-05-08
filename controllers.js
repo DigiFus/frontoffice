@@ -102,7 +102,7 @@ solicitudControllers.controller('solicitudListarCtrl', ['$scope', 'restApi', '$i
       { 
        cargarSolicitudes()
       }, 
-       5000);
+       15000);
        
        $scope.$on('$destroy', function () 
        { 
@@ -117,8 +117,12 @@ solicitudControllers.controller('solicitudListarCtrl', ['$scope', 'restApi', '$i
             method: 'get',
             url: 'solicitud/obtener/' + acronimo,
             response: function(r){
-              console.log(r);
+              
                $scope.resultado = r;
+               $scope.turActual = r[0];
+               $scope.solRecibidas = r.length;
+               console.log(r[0]);
+
                
 
             },
@@ -131,6 +135,52 @@ solicitudControllers.controller('solicitudListarCtrl', ['$scope', 'restApi', '$i
             }
         });
       }
+
+      $scope.omitir = function(consecutivo){        
+        var con = confirm("Esta seguro que desea omitir la solicitud " + consecutivo+" ?");
+        if (con == true) {
+          var data = {
+            estado_solicitud:"OMITIDO"
+          };
+
+          registrar(data,consecutivo);
+          
+        }
+        else
+        {
+          return;
+        }
+
+     }
+
+      $scope.siguienteTurno = function(actual){
+        var data = {
+          estado_solicitud:"ATENTIDO"
+        };
+
+        registrar(data,actual);
+      }
+
+
+      function registrar(datos,consecutivo){
+
+           restApi.call({
+              method: 'put',
+              url: 'solicitud/actualizar/'+consecutivo,
+              data:datos,
+              response: function(r){
+                console.log(r);
+              },
+              error: function(r){
+                console.log(r);
+              },
+              validationError: function(r){
+                  console.log(r);
+                                    
+              }
+          });
+        }
+
 
   }]);
 

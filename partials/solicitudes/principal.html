@@ -1,13 +1,13 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">DigiFus</a>
+      <a class="navbar-brand" href="#/principal">DigiFus</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Principal <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#/principal">Principal <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/perfil/visualizar/{{Usuario}}">Mi perfil</a>
@@ -21,24 +21,59 @@
 
    
 <div class="container">
+    
+    <div class="row">
+      <div class="col">
+        <div class="card " style="width: 18rem; margin-top: 20px;">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Turno Actual</h3>
+          </div>
+          <div class="card-body">
+            
+            <h1 class="card-text text-center">{{turActual.acronimo_solicitud}} {{turActual.consecutivo_solicitud}}</h1>
+
+            
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 18rem; margin-top: 20px;">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Turnos nuevos</h3>
+          </div>
+          <div class="card-body">
+            
+            <h1 class="card-text text-center">{{solRecibidas}}</h1>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        
+      </div>
+    </div>
 
 
     <div class="card" style="margin-top: 20px;">
-        <div class="card-header bg-success text-white">
-            Solicitudes del día
+        <div class="card-header ">
+            Detalles de las solicitudes
         </div>
 
         <ul class="list-group list-group-flush">
             <li class="list-group-item" ng-repeat="r in resultado">
                 <!--<span nf-if="r.estado_solicitud == 'NUEVA'" class="pedido-estado pedido-estado-nuevo pull-left"></span>
                 <span nf-if="r.estado_solicitud == 'ATENDIDA'" class="pedido-estado pedido-estado-finalizado pull-left"></span>-->
-                <b>Turno #: </b>{{r.consecutivo_solicitud}} - {{r.nom_usuario}}
-                <span ng-if="r.estado_solicitud == 'NUEVA'" class="badge badge-primary pull-right">{{r.estado_solicitud}}</span> 
-                <span ng-if="r.estado_solicitud == 'ATENDIDA'" class="badge badge-success pull-right">{{r.estado_solicitud}}</span>                
+                <b>{{r.acronimo_solicitud}} {{r.consecutivo_solicitud}} </b> - {{r.nom_usuario}}
+                <span ng-if="r.estado_solicitud == 'NUEVA'" class="badge badge-primary ">{{r.estado_solicitud}}</span> 
+                <span ng-if="r.estado_solicitud == 'ATENDIDA'" class="badge badge-success ">{{r.estado_solicitud}}</span>
+                <button class="pull-right btn btn-dark" ng-click="omitir(r.consecutivo_solicitud)">Omitir</button>                
             </li>
 
         </ul>
-        <a class="btn btn-block btn-primary remove-border-radius" href="#/principal/registrar">Siguiente Turno</a>
+        <button class="btn btn-block btn-primary remove-border-radius" ng-click="siguienteTurno(turActual.consecutivo_solicitud)">
+          Siguiente Turno
+        </button>
+        
         <!--<ul class="table-view">
 
             <li class="table-view-cell" ng-repeat="r in resultado">
