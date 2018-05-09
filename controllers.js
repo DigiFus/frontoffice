@@ -684,11 +684,8 @@ perfilControllers.controller('PerfilVisualizarCtrl',['$scope', 'restApi', 'auth'
         if (validaPass($scope.txt_pass,$scope.txt_confipass))
         {
           var data = {
-            NOMBRE_EMPLEADO:$scope.txt_nombre,
-            FNACIMIENTO_EMPLEADO:$scope.txt_fnacimiento,
-            TEL_EMPLEADO:$scope.txt_tel,
-            EMAIL_EMPLEADO:$scope.txt_email,
-            PASS_EMPLEADO:$scope.txt_pass
+            nom_usuario:$scope.txt_nombre,
+            pass_usuario:$scope.txt_pass
 
           };
           actualizar(data);
@@ -705,7 +702,7 @@ perfilControllers.controller('PerfilVisualizarCtrl',['$scope', 'restApi', 'auth'
       //console.log(datos);
        restApi.call({
           method: 'put',
-          url: 'empleado/actualizar/'+$scope.usuario,
+          url: 'usuario/actualizar/'+ Usuario,
           data:datos,
           response: function(r){
              //console.log(r);
