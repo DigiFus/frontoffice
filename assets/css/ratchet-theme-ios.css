@@ -52,8 +52,8 @@ p {
 
 .btn-primary {
   color: #fff;
-  background-color: #007aff;
-  border: 1px solid #007aff;
+  background-color: #01DF3A;
+  border: 1px solid #01DF3A;
 }
 .btn-primary:active, .btn-primary.active {
   background-color: #0062cc;

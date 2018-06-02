@@ -58,3 +58,13 @@ dl dd{margin-left:0;}
 	background-color: #F99;
 	
 }
+.btn-secundary{
+	color: #fff;
+  	background-color: #009688;
+  	border: 1px solid #009688;
+}
+.btn-primary{
+	color: #fff;
+  	background-color: #3F51B5;
+  	border: 1px solid #3F51B5;
+}
