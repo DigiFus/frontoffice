@@ -16,35 +16,39 @@
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
 			<!-- MENSAJE DE ERROR EN EL REGISTRO -->
-			<div class="alert alert-warning alert-dismissible fade show" role="alert" ng-show="errorRegistro!=''">
-			  <strong>Registro de usuario: </strong> {{errorRegistro}}
+			<div class="alert alert-warning alert-dismissible fade show " role="alert" ng-show="errorRegistro!=''">
+			  <strong>Registro de Usuario </strong> {{errorRegistro}}
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			    <span aria-hidden="true">&times;</span>
 			  </button>
 			</div>
 			<!-- FIN MENSAJE DE ERROR EN EL REGISTRO -->
 
-			<div class="card ">
-			  <div class="card-header bg-info text-light">
+			<div class="card">
+			  <div class="card-header bg-primary text-white">
 			    Registro de usuario
 			  </div>
 			  <div class="card-body" style="margin: 5px">
 			    <div class="row">
-			    	<label for=""><b style="color: red;">* </b>Nombre completo:</label>
+			    	<label for=""><b style="color: red;">* </b>Nombres y Apellidos:</label>
 			    	<input type="text" class="form-control" ng-model="txt_nombre" >			    	
 			    </div>
+			    <br>
 			    <div class="row">
 			    	<label for=""><b style="color: red;">* </b>Correo:</label>
 			    	<input type="text" class="form-control" placeholder="alguien@micorreo.com" ng-model="txt_correo">			    	
 			    </div>
+			    <br>
 			    <div class="row">
 			    	<label for=""><b style="color: red;">* </b>Contraseña:</label>
 			    	<input type="password" class="form-control" placeholder="*****" ng-model="txt_pass">			    	
 			    </div>
+			    <br>
 			    <div class="row">
-			    	<label for=""><b style="color: red;">* </b>Confirme su contraseña:</label>
+			    	<label for=""><b style="color: red;">* </b>Confirmar contraseña:</label>
 			    	<input type="password" class="form-control" ng-model="txt_confipass">			    	
 			    </div>
+			    <br>
 			    <div class="row">
 			    	<div class="col">
 			    		<div class="alert alert-warning alert-dismissible fade show" role="alert" ng-show="errorPass!=''">
@@ -57,7 +61,7 @@
 			    	</div>
 			    </div>
 			    <div class="row">
-			    	<button class="btn btn-success btn-block" ng-click="crearUsuario()">Crear mi usuario</button>
+			    	<button class="btn btn-secundary btn-block" ng-click="crearUsuario()">CREAR CUENTA</button>
 			    </div>
 			  </div>
 			</div>
